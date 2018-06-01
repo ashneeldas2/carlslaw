@@ -1,36 +1,49 @@
-HScrollbar hs; //<>//
+HScrollbar hs; //<>// //<>//
 
 void setup() {
   fullScreen(P3D);
-  hs = new HScrollbar(0, height/2+10, width, 16, 16);
+  hs = new HScrollbar(width/2+30, height/2+75, width/2-100, 16, 16);
 //  size(300, 300, P3D); 
 }
 
 void draw() {
   background(0, 255, 255);
-  pushMatrix();
-  translate(width/4, height/4);
-  sphere(50);
-  popMatrix();
-  pushMatrix(); 
-  translate(width/4 + 100, height/4);
-  ellipse(0, 0, 50, 50);
-  popMatrix();
-  
   //Scrollbar
-  //hs.update();
-  //hs.display();
+  stroke(0, 0, 0);
+  hs.update();
+  hs.display();
+  float r = (hs.spos - (width/2 + 30))/5; 
   
   //Draw Axes
   line(width/2 + 30,30, width/2 + 30, height/2);
   line(width/2 + 30, height/2, width - 30, height/2);
   
+  //Labels
+  PFont myFont = createFont("Sans Serif", 15);
+  textFont(myFont);
+  fill(255, 0, 0); 
+  text("Radius", 3*width/4-30, height/2+25);
+  text("Electric Field", width/2-75, height/4+25);
+  
   //Draw Graph
-  for (float i = 0; i < 100; i += 0.2){
-   point(i * 5 + width/2 + 30, height/2 - graph(i) * 100000);
+  for (float i = 0; i < r; i += 0.2){
+   point(i * 5 + width/2 + 30, height/2 - graph(i) * 130000);
   }
-  
-  
+   
+  //Sphere (this may be a lil bit of a problem rn) 
+  pushMatrix();
+  //noStroke();
+  lights();
+  translate(width/4, height/4);
+  noStroke();
+  fill(255, 255, 255);
+  sphere(50);
+  stroke(0, 0, 0);
+  fill(255, 0, 0); 
+  sphere(r);
+  popMatrix();
+
+ 
 }
 
 float e = 8.85 * pow(10, -12);
@@ -44,78 +57,5 @@ float graph(float r) {
   }
   else{
     return Q / (4*PI*pow(r, 2));
-  }
-}
-
-
-public class HScrollbar {
-  int swidth, sheight;    // width and height of bar
-  float xpos, ypos;       // x and y position of bar
-  float spos, newspos;    // x position of slider
-  float sposMin, sposMax; // max and min values of slider
-  int loose;              // how loose/heavy
-  boolean over;           // is the mouse over the slider?
-  boolean locked;
-  float ratio;
-
-  HScrollbar (float xp, float yp, int sw, int sh, int l) {
-    swidth = sw;
-    sheight = sh;
-    int widthtoheight = sw - sh;
-    ratio = (float)sw / (float)widthtoheight;
-    xpos = xp;
-    ypos = yp-sheight/2;
-    spos = xpos + swidth/2 - sheight/2;
-    newspos = spos;
-    sposMin = xpos;
-    sposMax = xpos + swidth - sheight;
-    loose = l;
-  }
-
-  void update() {
-    if (overEvent()) {
-      over = true;
-    } else {
-      over = false;
-    }
-    if (mousePressed && over) {
-      locked = true;
-    }
-    if (!mousePressed) {
-      locked = false;
-    }
-    if (locked) {
-      newspos = constrain(mouseX-sheight/2, sposMin, sposMax);
-    }
-    if (abs(newspos - spos) > 1) {
-      spos = spos + (newspos-spos)/loose;
-    }
-  }
-
-  float constrain(float val, float minv, float maxv) {
-    return min(max(val, minv), maxv);
-  }
-
-  boolean overEvent() {
-    if (mouseX > xpos && mouseX < xpos+swidth &&
-       mouseY > ypos && mouseY < ypos+sheight) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  void display() {
-    noStroke();
-    fill(204);
-    rect(xpos, ypos, swidth, sheight);
-    fill(0, 0, 0);
-    rect(spos, ypos, sheight, sheight);
-  }
-
-  float getPos() {
-    // Convert spos to be values between
-    // 0 and the total width of the scrollbar
-    return spos * ratio;
   }
 }
