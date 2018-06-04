@@ -57,10 +57,12 @@ public class HScrollbar {
 
   void display() {
     //noStroke();
-    fill(204);
-    rect(xpos, ypos, swidth, sheight);
-    fill(0, 0, 0);
-    rect(spos, ypos, sheight, sheight);
+    if (gauss.started) {
+      fill(204);
+      rect(xpos, ypos, swidth, sheight);
+      fill(0, 0, 0);
+      rect(spos, ypos, sheight, sheight);
+    }
   }
 
   float getPos() {

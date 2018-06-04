@@ -1,14 +1,26 @@
 HScrollbar hs; //<>// //<>//
+public static Boolean started; 
+public static Boolean sphere, cylinder, plate; 
 
 void setup() {
   fullScreen(P3D);
+  started = false;
   hs = new HScrollbar(width/2+30, height/2+75, width/2-100, 16, 16);
-//  size(300, 300, P3D); 
+//  size(300, 300, P3D);   
 }
 
 void draw() {
   background(0, 255, 255);
+  if (!started) {
+      fill(255, 0, 0); 
+      rect(width/4, height/2, 50, 30); 
+      fill(0, 255, 0); 
+      rect(2 * width/4, height/2, 50, 30);
+      fill(0, 0, 255); 
+      rect(3 * width/4, height/2, 50, 30);
+  }
   //Scrollbar
+  if (started && sphere) {
   stroke(0, 0, 0);
   hs.update();
   hs.display();
@@ -36,14 +48,24 @@ void draw() {
   lights();
   translate(width/4, height/4);
   noStroke();
-  fill(255, 255, 255);
-  sphere(50);
-  stroke(0, 0, 0);
-  fill(255, 0, 0); 
-  sphere(r);
+  if (r > 50) {
+    fill(0, 0, 0);
+    sphere(50);
+    fill(255, 255, 255, 127.5); 
+    sphere(r);
+  }
+  else {
+    fill(255, 255, 255);
+    sphere(r);
+    fill(0, 0, 0, 127.5); 
+    sphere(50);
+  }
   popMatrix();
+  }
+}
 
- 
+void mousePressed() {
+    
 }
 
 float e = 8.85 * pow(10, -12);
