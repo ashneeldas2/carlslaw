@@ -1,6 +1,6 @@
 HScrollbar hs; //<>// //<>//
 public static Boolean started; 
-public static Boolean sphere, cylinder, plate; 
+public static Boolean sphere, cylinder, sheet; 
 
 void setup() {
   fullScreen(P3D);
@@ -10,14 +10,22 @@ void setup() {
 }
 
 void draw() {
-  background(0, 255, 255);
+  background(165,216,255);
   if (!started) {
-      fill(255, 0, 0); 
-      rect(width/4, height/2, 50, 30); 
-      fill(0, 255, 0); 
-      rect(2 * width/4, height/2, 50, 30);
-      fill(0, 0, 255); 
-      rect(3 * width/4, height/2, 50, 30);
+      PFont memes = createFont("Sans Serif", 20);
+      textFont(memes);
+      fill(144,195,200); 
+      rect(width/4 - 60, height/2 - 40, 140, 80, 5, 5, 5, 5); 
+      fill(0, 0, 0);
+      text("Sphere", width/4 - 20, height/2 + 5);
+      fill(185,184,211); 
+      rect(width/2 - 60, height/2 - 40, 140, 80, 5, 5, 5, 5); 
+      fill(0, 0, 0);
+      text("Cylinder", width/2 - 30, height/2 + 5); 
+      fill(117,159,188); 
+      rect(width/4 * 3 - 60, height/2 - 40, 140, 80, 5, 5, 5, 5); 
+      fill(0, 0, 0);
+      text("Sheet", 3 * width/4 - 20, height/2 + 5); 
   }
   //Scrollbar
   if (started && sphere) {
@@ -42,7 +50,7 @@ void draw() {
    point(i * 5 + width/2 + 30, height/2 - graph(i) * 130000);
   }
    
-  //Sphere (this may be a lil bit of a problem rn) 
+  //Sphere 
   pushMatrix();
   //noStroke();
   lights();
@@ -65,7 +73,20 @@ void draw() {
 }
 
 void mousePressed() {
-    
+    if (!started){
+      if ((mouseX > width/4 - 60 && mouseX < width/4 + 80) && (mouseY > height/2 - 40 && mouseY < height/2 + 40)){
+        sphere = true;
+        started = true;
+      }
+      else if ((mouseX > width/2 - 60 && mouseX < width/2 + 80) && (mouseY > height/2 - 40 && mouseY < height/2 + 40)){
+        cylinder = true;
+        started = true;
+      }
+      else if ((mouseX > width/4 * 3 - 60 && mouseX < width/4 * 3 + 80) && (mouseY > height/2 - 40 && mouseY < height/2 + 40)){
+        sheet = true;
+        started = true;
+      }
+    }
 }
 
 float e = 8.85 * pow(10, -12);
