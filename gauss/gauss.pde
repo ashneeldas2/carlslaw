@@ -14,6 +14,7 @@ void setup() {
 
 void draw() {
   background(165,216,255);
+  stroke(0, 0, 0);
   if (!started) {
       PFont memes = createFont("Sans Serif", 20);
       textFont(memes);
@@ -30,7 +31,14 @@ void draw() {
       fill(0, 0, 0);
       text("Sheet", 3 * width/4 - 20, height/2 + 5); 
   }
-  //Scrollbar
+  if (started) {
+      PFont memes = createFont("Sans Serif", 20);
+      textFont(memes);
+      fill(144,195,200); 
+      rect(50, height/16, 140, 80, 5, 5, 5, 5); 
+      fill(0, 0, 0);
+      text("Back", 100, height/16+45); 
+  }
   if (started && sphere) {
   stroke(0, 0, 0);
   hs.update();
@@ -94,8 +102,7 @@ void draw() {
   
   //Draw Graph
   for (float i = 0; i < r; i += 0.2){
-   point(i * 5 + width/2 + 30, 3 *height/2 - graphC(i) * 25000);
-   System.out.println(height/2 - graphC(i) * 25000);
+   point(i * 5 + width/2 + 30, height/2 - graphC(i) * 1000);
   }
    
   //Cylinder
@@ -107,10 +114,11 @@ void draw() {
   rotateY(PI/4);
   noLights();
   if (r > 50) {
+    lights();
     fill(255, 255, 255); 
-    drawCylinder(50, r, 150); 
+    drawCylinder(50, 50, 150); 
     fill(176, 246, 250, 127.5); 
-    drawCylinder(50, 50, 150);
+    drawCylinder(50, r, 150);
   }
   else {
     lights();
@@ -137,6 +145,14 @@ void mousePressed() {
         sheet = true;
         started = true;
       }
+    }
+    else {
+       if ((mouseX > 50 && mouseX < 190) && (mouseY > height/16 && mouseY < height/16 + 80)) {
+         started = false; 
+         sphere = false;
+         cylinder = false;
+         sheet = false;
+       }
     }
 }
 
