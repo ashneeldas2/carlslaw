@@ -70,13 +70,13 @@ void draw() {
   if (r > 50) {
     fill(255, 255, 255);
     sphere(50);
-    fill(176, 246, 250, 127.5); 
+    fill(167, 147, 214, 200); 
     sphere(r);
   }
   else {
-    fill(176, 246, 250);
+    fill(167, 147, 214);
     sphere(r);
-    fill(255, 255, 255, 127.5); 
+    fill(255, 255, 255, 200); 
     sphere(50);
   }
   popMatrix();
@@ -114,19 +114,18 @@ void draw() {
   rotateY(PI/4);
   noLights();
   if (r > 50) {
-    lights();
-    fill(130, 151, 186); 
-    drawCylinder(50, 50, 150); 
-    fill(176, 246, 250, 127.5); 
-    drawCylinder(50, r, 150);
+    //lights();
+    
+    drawCylinder(50, 50, 150, 0); 
+     
+    drawCylinder(50, r, 150, 1);
   }
   else {
-    lights();
+    //lights();
     
-    fill(176, 246, 250);
-    drawCylinder(50, r, 150);
-     fill(130, 151, 186, 127.5);
-    drawCylinder(50, 50, 150);
+    drawCylinder(50, r, 150, 1);
+
+    drawCylinder(50, 50, 150, 0);
   }
   popMatrix();
   }
@@ -180,7 +179,7 @@ float graphC(float r) {
   }
 }
 
-void drawCylinder(int sides, float r, float h)
+void drawCylinder(int sides, float r, float h, int type)
 {
     float angle = 360 / sides;
     float halfHeight = h / 2;
@@ -189,6 +188,12 @@ void drawCylinder(int sides, float r, float h)
     for (int i = 0; i < sides; i++) {
         float x = cos( radians( i * angle ) ) * r;
         float y = sin( radians( i * angle ) ) * r;
+        if (type == 0){
+          fill(130, 151, 186); 
+        }
+        else{
+          fill(176, 246, 250);
+        }
         vertex( x, y, -halfHeight );    
     }
     endShape(CLOSE);
@@ -197,6 +202,12 @@ void drawCylinder(int sides, float r, float h)
     for (int i = 0; i < sides; i++) {
         float x = cos( radians( i * angle ) ) * r;
         float y = sin( radians( i * angle ) ) * r;
+        if (type == 0){
+          fill(130, 151, 186, 225); 
+        }
+        else{
+          fill(176, 246, 250, 225);
+        }
         vertex( x, y, halfHeight );    
     }
     endShape(CLOSE);
@@ -205,6 +216,12 @@ void drawCylinder(int sides, float r, float h)
     for (int i = 0; i < sides + 1; i++) {
       float x = cos( radians( i * angle ) ) * r;
       float y = sin( radians( i * angle ) ) * r;
+      if (type == 0){
+          fill(130, 151, 186, 127.5); 
+        }
+        else{
+          fill(176, 246, 250, 127.5);
+        }
       vertex( x, y, halfHeight);
       vertex( x, y, -halfHeight);    
     }
