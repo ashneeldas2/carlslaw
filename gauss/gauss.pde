@@ -183,6 +183,7 @@ void drawCylinder(int sides, float r, float h, int type)
 {
     float angle = 360 / sides;
     float halfHeight = h / 2;
+    /*
     // draw top shape
     beginShape();
     for (int i = 0; i < sides; i++) {
@@ -197,7 +198,9 @@ void drawCylinder(int sides, float r, float h, int type)
         vertex( x, y, -halfHeight );    
     }
     endShape(CLOSE);
+    */
     // draw bottom shape
+    
     beginShape();
     for (int i = 0; i < sides; i++) {
         float x = cos( radians( i * angle ) ) * r;
