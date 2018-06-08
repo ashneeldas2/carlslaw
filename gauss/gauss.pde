@@ -68,15 +68,15 @@ void draw() {
   translate(width/4, height/4);
   noStroke();
   if (r > 50) {
-    fill(0, 0, 0);
+    fill(255, 255, 255);
     sphere(50);
-    fill(255, 255, 255, 127.5); 
+    fill(176, 246, 250, 127.5); 
     sphere(r);
   }
   else {
-    fill(255, 255, 255);
+    fill(176, 246, 250);
     sphere(r);
-    fill(0, 0, 0, 127.5); 
+    fill(255, 255, 255, 127.5); 
     sphere(50);
   }
   popMatrix();
@@ -115,16 +115,17 @@ void draw() {
   noLights();
   if (r > 50) {
     lights();
-    fill(255, 255, 255); 
+    fill(130, 151, 186); 
     drawCylinder(50, 50, 150); 
     fill(176, 246, 250, 127.5); 
     drawCylinder(50, r, 150);
   }
   else {
     lights();
-    fill(255, 255, 255);
+    
+    fill(176, 246, 250);
     drawCylinder(50, r, 150);
-    fill(176, 246, 250, 127.5); 
+     fill(130, 151, 186, 127.5);
     drawCylinder(50, 50, 150);
   }
   popMatrix();
