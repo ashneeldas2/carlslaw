@@ -1,4 +1,4 @@
-HScrollbar hs; //<>// //<>// //<>//
+HScrollbar hs; //<>// //<>// //<>// //<>//
 public static Boolean started; 
 public static Boolean sphere, cylinder, sheet; 
 
@@ -129,6 +129,44 @@ void draw() {
   }
   popMatrix();
   }
+  
+  
+  // SHEET START 
+  if (started && sheet) {
+  stroke(0, 0, 0);
+  hs.update();
+  hs.display();
+  float r = (hs.spos - (width/2 + 30))/5; 
+  
+  //Draw Axes
+  line(width/2 + 30,30, width/2 + 30, height/2);
+  line(width/2 + 30, height/2, width - 30, height/2);
+  
+  //Labels
+  PFont myFont = createFont("Sans Serif", 15);
+  textFont(myFont);
+  fill(255, 0, 0); 
+  text("Distance", 3*width/4-30, height/2+25);
+  text("Electric Field", width/2-75, height/4+25);
+  
+  //Draw Graph
+  for (float i = 0; i < r; i += 0.2){
+   point(i * 5 + width/2 + 30, height/2 - 50);
+  }
+   
+  //Sheet
+  pushMatrix();
+  //noStroke();
+  translate(width/4, height/4);
+  noStroke();
+
+ // lights();
+  fill(0, 0, 0);
+  point(width/4, height/4 - r);
+  fill(255,255,255, 200);
+  box(200, 15, 30);
+  popMatrix();
+  }
 }
 
 void mousePressed() {
@@ -183,7 +221,7 @@ void drawCylinder(int sides, float r, float h, int type)
 {
     float angle = 360 / sides;
     float halfHeight = h / 2;
-    /*
+    
     // draw top shape
     beginShape();
     for (int i = 0; i < sides; i++) {
@@ -198,9 +236,9 @@ void drawCylinder(int sides, float r, float h, int type)
         vertex( x, y, -halfHeight );    
     }
     endShape(CLOSE);
-    */
-    // draw bottom shape
     
+    // draw bottom shape
+    /*
     beginShape();
     for (int i = 0; i < sides; i++) {
         float x = cos( radians( i * angle ) ) * r;
@@ -214,7 +252,7 @@ void drawCylinder(int sides, float r, float h, int type)
         vertex( x, y, halfHeight );    
     }
     endShape(CLOSE);
-    
+    */
     beginShape(TRIANGLE_STRIP);
     for (int i = 0; i < sides + 1; i++) {
       float x = cos( radians( i * angle ) ) * r;
