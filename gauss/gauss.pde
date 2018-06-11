@@ -154,7 +154,7 @@ void draw() {
    point(i * 5 + width/2 + 30, height/2 - 50);
   }
    
-  //Sheet
+  // Sheet
   pushMatrix();
   //noStroke();
   translate(width/4, height/4);
@@ -162,7 +162,7 @@ void draw() {
 
  // lights();
   fill(0, 0, 0);
-  point(width/4, height/4 - r);
+  ellipse(0, -r, 5, 5);
   fill(255,255,255, 200);
   box(200, 15, 30);
   popMatrix();
